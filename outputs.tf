@@ -1,4 +1,9 @@
 # --- azurerm_cdn_frontdoor_profile ---
+output "cdn_frontdoor_profiles_id" {
+  description = "Map of id values across all cdn_frontdoor_profiles, keyed the same as var.cdn_frontdoor_profiles"
+  value       = module.cdn_frontdoor_profiles.cdn_frontdoor_profiles_id
+}
+
 output "cdn_frontdoor_profiles_identity" {
   description = "Map of identity values across all cdn_frontdoor_profiles, keyed the same as var.cdn_frontdoor_profiles"
   value       = module.cdn_frontdoor_profiles.cdn_frontdoor_profiles_identity
@@ -40,6 +45,11 @@ output "cdn_frontdoor_profiles_tags" {
 }
 
 # --- azurerm_cdn_frontdoor_custom_domain ---
+output "cdn_frontdoor_custom_domains_id" {
+  description = "Map of id values across all cdn_frontdoor_custom_domains, keyed the same as var.cdn_frontdoor_custom_domains"
+  value       = module.cdn_frontdoor_custom_domains.cdn_frontdoor_custom_domains_id
+}
+
 output "cdn_frontdoor_custom_domains_cdn_frontdoor_profile_id" {
   description = "Map of cdn_frontdoor_profile_id values across all cdn_frontdoor_custom_domains, keyed the same as var.cdn_frontdoor_custom_domains"
   value       = module.cdn_frontdoor_custom_domains.cdn_frontdoor_custom_domains_cdn_frontdoor_profile_id
@@ -76,6 +86,11 @@ output "cdn_frontdoor_custom_domains_validation_token" {
 }
 
 # --- azurerm_cdn_frontdoor_endpoint ---
+output "cdn_frontdoor_endpoints_id" {
+  description = "Map of id values across all cdn_frontdoor_endpoints, keyed the same as var.cdn_frontdoor_endpoints"
+  value       = module.cdn_frontdoor_endpoints.cdn_frontdoor_endpoints_id
+}
+
 output "cdn_frontdoor_endpoints_cdn_frontdoor_profile_id" {
   description = "Map of cdn_frontdoor_profile_id values across all cdn_frontdoor_endpoints, keyed the same as var.cdn_frontdoor_endpoints"
   value       = module.cdn_frontdoor_endpoints.cdn_frontdoor_endpoints_cdn_frontdoor_profile_id
@@ -102,6 +117,11 @@ output "cdn_frontdoor_endpoints_tags" {
 }
 
 # --- azurerm_cdn_frontdoor_origin_group ---
+output "cdn_frontdoor_origin_groups_id" {
+  description = "Map of id values across all cdn_frontdoor_origin_groups, keyed the same as var.cdn_frontdoor_origin_groups"
+  value       = module.cdn_frontdoor_origin_groups.cdn_frontdoor_origin_groups_id
+}
+
 output "cdn_frontdoor_origin_groups_cdn_frontdoor_profile_id" {
   description = "Map of cdn_frontdoor_profile_id values across all cdn_frontdoor_origin_groups, keyed the same as var.cdn_frontdoor_origin_groups"
   value       = module.cdn_frontdoor_origin_groups.cdn_frontdoor_origin_groups_cdn_frontdoor_profile_id
@@ -133,6 +153,11 @@ output "cdn_frontdoor_origin_groups_session_affinity_enabled" {
 }
 
 # --- azurerm_cdn_frontdoor_rule_set ---
+output "cdn_frontdoor_rule_sets_id" {
+  description = "Map of id values across all cdn_frontdoor_rule_sets, keyed the same as var.cdn_frontdoor_rule_sets"
+  value       = module.cdn_frontdoor_rule_sets.cdn_frontdoor_rule_sets_id
+}
+
 output "cdn_frontdoor_rule_sets_cdn_frontdoor_profile_id" {
   description = "Map of cdn_frontdoor_profile_id values across all cdn_frontdoor_rule_sets, keyed the same as var.cdn_frontdoor_rule_sets"
   value       = module.cdn_frontdoor_rule_sets.cdn_frontdoor_rule_sets_cdn_frontdoor_profile_id
@@ -144,6 +169,11 @@ output "cdn_frontdoor_rule_sets_name" {
 }
 
 # --- azurerm_cdn_frontdoor_secret ---
+output "cdn_frontdoor_secrets_id" {
+  description = "Map of id values across all cdn_frontdoor_secrets, keyed the same as var.cdn_frontdoor_secrets"
+  value       = module.cdn_frontdoor_secrets.cdn_frontdoor_secrets_id
+}
+
 output "cdn_frontdoor_secrets_cdn_frontdoor_profile_id" {
   description = "Map of cdn_frontdoor_profile_id values across all cdn_frontdoor_secrets, keyed the same as var.cdn_frontdoor_secrets"
   value       = module.cdn_frontdoor_secrets.cdn_frontdoor_secrets_cdn_frontdoor_profile_id
@@ -165,6 +195,11 @@ output "cdn_frontdoor_secrets_secret" {
 }
 
 # --- azurerm_cdn_frontdoor_security_policy ---
+output "cdn_frontdoor_security_policies_id" {
+  description = "Map of id values across all cdn_frontdoor_security_policies, keyed the same as var.cdn_frontdoor_security_policies"
+  value       = module.cdn_frontdoor_security_policies.cdn_frontdoor_security_policies_id
+}
+
 output "cdn_frontdoor_security_policies_cdn_frontdoor_profile_id" {
   description = "Map of cdn_frontdoor_profile_id values across all cdn_frontdoor_security_policies, keyed the same as var.cdn_frontdoor_security_policies"
   value       = module.cdn_frontdoor_security_policies.cdn_frontdoor_security_policies_cdn_frontdoor_profile_id
@@ -181,6 +216,11 @@ output "cdn_frontdoor_security_policies_security_policies" {
 }
 
 # --- azurerm_cdn_frontdoor_custom_domain_association ---
+output "cdn_frontdoor_custom_domain_associations_id" {
+  description = "Map of id values across all cdn_frontdoor_custom_domain_associations, keyed the same as var.cdn_frontdoor_custom_domain_associations"
+  value       = module.cdn_frontdoor_custom_domain_associations.cdn_frontdoor_custom_domain_associations_id
+}
+
 output "cdn_frontdoor_custom_domain_associations_cdn_frontdoor_custom_domain_id" {
   description = "Map of cdn_frontdoor_custom_domain_id values across all cdn_frontdoor_custom_domain_associations, keyed the same as var.cdn_frontdoor_custom_domain_associations"
   value       = module.cdn_frontdoor_custom_domain_associations.cdn_frontdoor_custom_domain_associations_cdn_frontdoor_custom_domain_id
@@ -192,6 +232,11 @@ output "cdn_frontdoor_custom_domain_associations_cdn_frontdoor_route_ids" {
 }
 
 # --- azurerm_cdn_frontdoor_origin ---
+output "cdn_frontdoor_origins_id" {
+  description = "Map of id values across all cdn_frontdoor_origins, keyed the same as var.cdn_frontdoor_origins"
+  value       = module.cdn_frontdoor_origins.cdn_frontdoor_origins_id
+}
+
 output "cdn_frontdoor_origins_cdn_frontdoor_origin_group_id" {
   description = "Map of cdn_frontdoor_origin_group_id values across all cdn_frontdoor_origins, keyed the same as var.cdn_frontdoor_origins"
   value       = module.cdn_frontdoor_origins.cdn_frontdoor_origins_cdn_frontdoor_origin_group_id
@@ -248,6 +293,11 @@ output "cdn_frontdoor_origins_weight" {
 }
 
 # --- azurerm_cdn_frontdoor_route ---
+output "cdn_frontdoor_routes_id" {
+  description = "Map of id values across all cdn_frontdoor_routes, keyed the same as var.cdn_frontdoor_routes"
+  value       = module.cdn_frontdoor_routes.cdn_frontdoor_routes_id
+}
+
 output "cdn_frontdoor_routes_cache" {
   description = "Map of cache values across all cdn_frontdoor_routes, keyed the same as var.cdn_frontdoor_routes"
   value       = module.cdn_frontdoor_routes.cdn_frontdoor_routes_cache
@@ -319,6 +369,11 @@ output "cdn_frontdoor_routes_supported_protocols" {
 }
 
 # --- azurerm_cdn_frontdoor_rule ---
+output "cdn_frontdoor_rules_id" {
+  description = "Map of id values across all cdn_frontdoor_rules, keyed the same as var.cdn_frontdoor_rules"
+  value       = module.cdn_frontdoor_rules.cdn_frontdoor_rules_id
+}
+
 output "cdn_frontdoor_rules_actions" {
   description = "Map of actions values across all cdn_frontdoor_rules, keyed the same as var.cdn_frontdoor_rules"
   value       = module.cdn_frontdoor_rules.cdn_frontdoor_rules_actions
