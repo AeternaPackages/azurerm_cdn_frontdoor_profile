@@ -5,7 +5,7 @@ locals {
     for k1, v1 in var.cdn_frontdoor_profiles : {
       for k2, v2 in coalesce(v1.cdn_frontdoor_custom_domains, {}) :
       "${k1}/${k2}" => merge(v2, {
-        cdn_frontdoor_profile_id = module.cdn_frontdoor_profiles.cdn_frontdoor_profiles["${k1}"].id
+        cdn_frontdoor_profile_id = module.cdn_frontdoor_profiles.cdn_frontdoor_profiles_id["${k1}"]
       })
     }
   ]...)
@@ -14,7 +14,7 @@ locals {
     for k1, v1 in var.cdn_frontdoor_profiles : {
       for k2, v2 in coalesce(v1.cdn_frontdoor_endpoints, {}) :
       "${k1}/${k2}" => merge(v2, {
-        cdn_frontdoor_profile_id = module.cdn_frontdoor_profiles.cdn_frontdoor_profiles["${k1}"].id
+        cdn_frontdoor_profile_id = module.cdn_frontdoor_profiles.cdn_frontdoor_profiles_id["${k1}"]
       })
     }
   ]...)
@@ -23,7 +23,7 @@ locals {
     for k1, v1 in var.cdn_frontdoor_profiles : {
       for k2, v2 in coalesce(v1.cdn_frontdoor_origin_groups, {}) :
       "${k1}/${k2}" => merge(v2, {
-        cdn_frontdoor_profile_id = module.cdn_frontdoor_profiles.cdn_frontdoor_profiles["${k1}"].id
+        cdn_frontdoor_profile_id = module.cdn_frontdoor_profiles.cdn_frontdoor_profiles_id["${k1}"]
       })
     }
   ]...)
@@ -32,7 +32,7 @@ locals {
     for k1, v1 in var.cdn_frontdoor_profiles : {
       for k2, v2 in coalesce(v1.cdn_frontdoor_rule_sets, {}) :
       "${k1}/${k2}" => merge(v2, {
-        cdn_frontdoor_profile_id = module.cdn_frontdoor_profiles.cdn_frontdoor_profiles["${k1}"].id
+        cdn_frontdoor_profile_id = module.cdn_frontdoor_profiles.cdn_frontdoor_profiles_id["${k1}"]
       })
     }
   ]...)
@@ -41,7 +41,7 @@ locals {
     for k1, v1 in var.cdn_frontdoor_profiles : {
       for k2, v2 in coalesce(v1.cdn_frontdoor_secrets, {}) :
       "${k1}/${k2}" => merge(v2, {
-        cdn_frontdoor_profile_id = module.cdn_frontdoor_profiles.cdn_frontdoor_profiles["${k1}"].id
+        cdn_frontdoor_profile_id = module.cdn_frontdoor_profiles.cdn_frontdoor_profiles_id["${k1}"]
       })
     }
   ]...)
@@ -50,7 +50,7 @@ locals {
     for k1, v1 in var.cdn_frontdoor_profiles : {
       for k2, v2 in coalesce(v1.cdn_frontdoor_security_policies, {}) :
       "${k1}/${k2}" => merge(v2, {
-        cdn_frontdoor_profile_id = module.cdn_frontdoor_profiles.cdn_frontdoor_profiles["${k1}"].id
+        cdn_frontdoor_profile_id = module.cdn_frontdoor_profiles.cdn_frontdoor_profiles_id["${k1}"]
       })
     }
   ]...)
@@ -60,7 +60,7 @@ locals {
       for k2, v2 in coalesce(v1.cdn_frontdoor_custom_domains, {}) : {
         for k3, v3 in coalesce(v2.cdn_frontdoor_custom_domain_associations, {}) :
         "${k1}/${k2}/${k3}" => merge(v3, {
-          cdn_frontdoor_custom_domain_id = module.cdn_frontdoor_custom_domains.cdn_frontdoor_custom_domains["${k1}/${k2}"].id
+          cdn_frontdoor_custom_domain_id = module.cdn_frontdoor_custom_domains.cdn_frontdoor_custom_domains_id["${k1}/${k2}"]
         })
       }
     ]...)
@@ -71,7 +71,7 @@ locals {
       for k2, v2 in coalesce(v1.cdn_frontdoor_origin_groups, {}) : {
         for k3, v3 in coalesce(v2.cdn_frontdoor_origins, {}) :
         "${k1}/${k2}/${k3}" => merge(v3, {
-          cdn_frontdoor_origin_group_id = module.cdn_frontdoor_origin_groups.cdn_frontdoor_origin_groups["${k1}/${k2}"].id
+          cdn_frontdoor_origin_group_id = module.cdn_frontdoor_origin_groups.cdn_frontdoor_origin_groups_id["${k1}/${k2}"]
         })
       }
     ]...)
@@ -82,8 +82,8 @@ locals {
       for k2, v2 in coalesce(v1.cdn_frontdoor_endpoints, {}) : {
         for k3, v3 in coalesce(v2.cdn_frontdoor_routes, {}) :
         "${k1}/${k2}/${k3}" => merge(v3, {
-          cdn_frontdoor_endpoint_id     = module.cdn_frontdoor_endpoints.cdn_frontdoor_endpoints["${k1}/${k2}"].id
-          cdn_frontdoor_origin_group_id = try(module.cdn_frontdoor_origin_groups.cdn_frontdoor_origin_groups["${k1}/${v3.cdn_frontdoor_origin_group_id}"].id, v3.cdn_frontdoor_origin_group_id)
+          cdn_frontdoor_endpoint_id     = module.cdn_frontdoor_endpoints.cdn_frontdoor_endpoints_id["${k1}/${k2}"]
+          cdn_frontdoor_origin_group_id = try(module.cdn_frontdoor_origin_groups.cdn_frontdoor_origin_groups_id["${k1}/${v3.cdn_frontdoor_origin_group_id}"], v3.cdn_frontdoor_origin_group_id)
         })
       }
     ]...)
@@ -94,7 +94,7 @@ locals {
       for k2, v2 in coalesce(v1.cdn_frontdoor_rule_sets, {}) : {
         for k3, v3 in coalesce(v2.cdn_frontdoor_rules, {}) :
         "${k1}/${k2}/${k3}" => merge(v3, {
-          cdn_frontdoor_rule_set_id = module.cdn_frontdoor_rule_sets.cdn_frontdoor_rule_sets["${k1}/${k2}"].id
+          cdn_frontdoor_rule_set_id = module.cdn_frontdoor_rule_sets.cdn_frontdoor_rule_sets_id["${k1}/${k2}"]
         })
       }
     ]...)
