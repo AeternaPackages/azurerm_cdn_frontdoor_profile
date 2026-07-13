@@ -88,7 +88,7 @@ EOT
     name                     = string
     resource_group_name      = string
     sku_name                 = string
-    response_timeout_seconds = optional(number) # Default: 120
+    response_timeout_seconds = optional(number)
     tags                     = optional(map(string))
     identity = optional(object({
       identity_ids = optional(set(string))
@@ -103,7 +103,7 @@ EOT
       dns_zone_id = optional(string)
       tls = object({
         cdn_frontdoor_secret_id = optional(string)
-        certificate_type        = optional(string) # Default: "ManagedCertificate"
+        certificate_type        = optional(string)
         cipher_suite = optional(object({
           custom_ciphers = optional(object({
             tls12 = optional(set(string))
@@ -120,7 +120,7 @@ EOT
     })))
     cdn_frontdoor_endpoints = optional(map(object({
       name    = string
-      enabled = optional(bool) # Default: true
+      enabled = optional(bool)
       tags    = optional(map(string))
       cdn_frontdoor_routes = optional(map(object({
         cdn_frontdoor_origin_group_id   = string
@@ -131,47 +131,47 @@ EOT
         cdn_frontdoor_origin_ids        = optional(list(string))
         cdn_frontdoor_origin_path       = optional(string)
         cdn_frontdoor_rule_set_ids      = optional(set(string))
-        enabled                         = optional(bool)   # Default: true
-        forwarding_protocol             = optional(string) # Default: "MatchRequest"
-        https_redirect_enabled          = optional(bool)   # Default: true
-        link_to_default_domain          = optional(bool)   # Default: true
+        enabled                         = optional(bool)
+        forwarding_protocol             = optional(string)
+        https_redirect_enabled          = optional(bool)
+        link_to_default_domain          = optional(bool)
         cache = optional(object({
-          compression_enabled           = optional(bool) # Default: false
+          compression_enabled           = optional(bool)
           content_types_to_compress     = optional(list(string))
-          query_string_caching_behavior = optional(string) # Default: "IgnoreQueryString"
+          query_string_caching_behavior = optional(string)
           query_strings                 = optional(list(string))
         }))
       })))
     })))
     cdn_frontdoor_origin_groups = optional(map(object({
       name                                                      = string
-      restore_traffic_time_to_healed_or_new_endpoint_in_minutes = optional(number) # Default: 10
-      session_affinity_enabled                                  = optional(bool)   # Default: true
+      restore_traffic_time_to_healed_or_new_endpoint_in_minutes = optional(number)
+      session_affinity_enabled                                  = optional(bool)
       load_balancing = object({
-        additional_latency_in_milliseconds = optional(number) # Default: 50
-        sample_size                        = optional(number) # Default: 4
-        successful_samples_required        = optional(number) # Default: 3
+        additional_latency_in_milliseconds = optional(number)
+        sample_size                        = optional(number)
+        successful_samples_required        = optional(number)
       })
       health_probe = optional(object({
         interval_in_seconds = number
-        path                = optional(string) # Default: "/"
+        path                = optional(string)
         protocol            = string
-        request_type        = optional(string) # Default: "HEAD"
+        request_type        = optional(string)
       }))
       cdn_frontdoor_origins = optional(map(object({
         certificate_name_check_enabled = bool
         host_name                      = string
         name                           = string
-        enabled                        = optional(bool)   # Default: true
-        http_port                      = optional(number) # Default: 80
-        https_port                     = optional(number) # Default: 443
+        enabled                        = optional(bool)
+        http_port                      = optional(number)
+        https_port                     = optional(number)
         origin_host_header             = optional(string)
-        priority                       = optional(number) # Default: 1
-        weight                         = optional(number) # Default: 500
+        priority                       = optional(number)
+        weight                         = optional(number)
         private_link = optional(object({
           location               = string
           private_link_target_id = string
-          request_message        = optional(string) # Default: "Access request for CDN FrontDoor Private Link Origin"
+          request_message        = optional(string)
           target_type            = optional(string)
         }))
       })))
@@ -181,7 +181,7 @@ EOT
       cdn_frontdoor_rules = optional(map(object({
         name              = string
         order             = number
-        behavior_on_match = optional(string) # Default: "Continue"
+        behavior_on_match = optional(string)
         actions = object({
           request_header_action = optional(list(object({
             header_action = string
@@ -203,125 +203,125 @@ EOT
             query_string_parameters       = optional(list(string))
           }))
           url_redirect_action = optional(object({
-            destination_fragment = optional(string) # Default: ""
+            destination_fragment = optional(string)
             destination_hostname = string
-            destination_path     = optional(string) # Default: ""
-            query_string         = optional(string) # Default: ""
-            redirect_protocol    = optional(string) # Default: "MatchRequest"
+            destination_path     = optional(string)
+            query_string         = optional(string)
+            redirect_protocol    = optional(string)
             redirect_type        = string
           }))
           url_rewrite_action = optional(object({
             destination             = string
-            preserve_unmatched_path = optional(bool) # Default: false
+            preserve_unmatched_path = optional(bool)
             source_pattern          = string
           }))
         })
         conditions = optional(object({
           client_port_condition = optional(list(object({
             match_values     = optional(list(string))
-            negate_condition = optional(bool) # Default: false
+            negate_condition = optional(bool)
             operator         = string
           })))
           cookies_condition = optional(list(object({
             cookie_name      = string
             match_values     = optional(list(string))
-            negate_condition = optional(bool) # Default: false
+            negate_condition = optional(bool)
             operator         = string
             transforms       = optional(set(string))
           })))
           host_name_condition = optional(list(object({
             match_values     = optional(list(string))
-            negate_condition = optional(bool) # Default: false
+            negate_condition = optional(bool)
             operator         = string
             transforms       = optional(set(string))
           })))
           http_version_condition = optional(list(object({
             match_values     = set(string)
-            negate_condition = optional(bool)   # Default: false
-            operator         = optional(string) # Default: "Equal"
+            negate_condition = optional(bool)
+            operator         = optional(string)
           })))
           is_device_condition = optional(list(object({
             match_values     = optional(list(string))
-            negate_condition = optional(bool)   # Default: false
-            operator         = optional(string) # Default: "Equal"
+            negate_condition = optional(bool)
+            operator         = optional(string)
           })))
           post_args_condition = optional(list(object({
             match_values     = optional(list(string))
-            negate_condition = optional(bool) # Default: false
+            negate_condition = optional(bool)
             operator         = string
             post_args_name   = string
             transforms       = optional(set(string))
           })))
           query_string_condition = optional(list(object({
             match_values     = optional(list(string))
-            negate_condition = optional(bool) # Default: false
+            negate_condition = optional(bool)
             operator         = string
             transforms       = optional(set(string))
           })))
           remote_address_condition = optional(list(object({
             match_values     = optional(list(string))
-            negate_condition = optional(bool)   # Default: false
-            operator         = optional(string) # Default: "IPMatch"
+            negate_condition = optional(bool)
+            operator         = optional(string)
           })))
           request_body_condition = optional(list(object({
             match_values     = list(string)
-            negate_condition = optional(bool) # Default: false
+            negate_condition = optional(bool)
             operator         = string
             transforms       = optional(set(string))
           })))
           request_header_condition = optional(list(object({
             header_name      = string
             match_values     = optional(list(string))
-            negate_condition = optional(bool) # Default: false
+            negate_condition = optional(bool)
             operator         = string
             transforms       = optional(set(string))
           })))
           request_method_condition = optional(list(object({
             match_values     = set(string)
-            negate_condition = optional(bool)   # Default: false
-            operator         = optional(string) # Default: "Equal"
+            negate_condition = optional(bool)
+            operator         = optional(string)
           })))
           request_scheme_condition = optional(list(object({
             match_values     = optional(list(string))
-            negate_condition = optional(bool)   # Default: false
-            operator         = optional(string) # Default: "Equal"
+            negate_condition = optional(bool)
+            operator         = optional(string)
           })))
           request_uri_condition = optional(list(object({
             match_values     = optional(list(string))
-            negate_condition = optional(bool) # Default: false
+            negate_condition = optional(bool)
             operator         = string
             transforms       = optional(set(string))
           })))
           server_port_condition = optional(list(object({
             match_values     = set(string)
-            negate_condition = optional(bool) # Default: false
+            negate_condition = optional(bool)
             operator         = string
           })))
           socket_address_condition = optional(list(object({
             match_values     = optional(list(string))
-            negate_condition = optional(bool)   # Default: false
-            operator         = optional(string) # Default: "IPMatch"
+            negate_condition = optional(bool)
+            operator         = optional(string)
           })))
           ssl_protocol_condition = optional(list(object({
             match_values     = set(string)
-            negate_condition = optional(bool)   # Default: false
-            operator         = optional(string) # Default: "Equal"
+            negate_condition = optional(bool)
+            operator         = optional(string)
           })))
           url_file_extension_condition = optional(list(object({
             match_values     = list(string)
-            negate_condition = optional(bool) # Default: false
+            negate_condition = optional(bool)
             operator         = string
             transforms       = optional(set(string))
           })))
           url_filename_condition = optional(list(object({
             match_values     = optional(list(string))
-            negate_condition = optional(bool) # Default: false
+            negate_condition = optional(bool)
             operator         = string
             transforms       = optional(set(string))
           })))
           url_path_condition = optional(list(object({
             match_values     = optional(list(string))
-            negate_condition = optional(bool) # Default: false
+            negate_condition = optional(bool)
             operator         = string
             transforms       = optional(set(string))
           })))
