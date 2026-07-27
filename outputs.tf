@@ -44,6 +44,27 @@ output "cdn_frontdoor_profiles_tags" {
   value       = module.cdn_frontdoor_profiles.cdn_frontdoor_profiles_tags
 }
 
+# --- azurerm_cdn_frontdoor_batch_rule_set ---
+output "cdn_frontdoor_batch_rule_sets_id" {
+  description = "Map of id values across all cdn_frontdoor_batch_rule_sets, keyed the same as var.cdn_frontdoor_batch_rule_sets"
+  value       = module.cdn_frontdoor_batch_rule_sets.cdn_frontdoor_batch_rule_sets_id
+}
+
+output "cdn_frontdoor_batch_rule_sets_cdn_frontdoor_profile_id" {
+  description = "Map of cdn_frontdoor_profile_id values across all cdn_frontdoor_batch_rule_sets, keyed the same as var.cdn_frontdoor_batch_rule_sets"
+  value       = module.cdn_frontdoor_batch_rule_sets.cdn_frontdoor_batch_rule_sets_cdn_frontdoor_profile_id
+}
+
+output "cdn_frontdoor_batch_rule_sets_name" {
+  description = "Map of name values across all cdn_frontdoor_batch_rule_sets, keyed the same as var.cdn_frontdoor_batch_rule_sets"
+  value       = module.cdn_frontdoor_batch_rule_sets.cdn_frontdoor_batch_rule_sets_name
+}
+
+output "cdn_frontdoor_batch_rule_sets_rule" {
+  description = "Map of rule values across all cdn_frontdoor_batch_rule_sets, keyed the same as var.cdn_frontdoor_batch_rule_sets"
+  value       = module.cdn_frontdoor_batch_rule_sets.cdn_frontdoor_batch_rule_sets_rule
+}
+
 # --- azurerm_cdn_frontdoor_custom_domain ---
 output "cdn_frontdoor_custom_domains_id" {
   description = "Map of id values across all cdn_frontdoor_custom_domains, keyed the same as var.cdn_frontdoor_custom_domains"

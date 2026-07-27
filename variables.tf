@@ -10,6 +10,10 @@ Optional:
     - tags
     - identity (block)
     - log_scrubbing_rule (block)
+Nested cdn_frontdoor_batch_rule_sets (azurerm_cdn_frontdoor_batch_rule_set):
+    Required:
+        - name
+        - rule (block)
 Nested cdn_frontdoor_custom_domains (azurerm_cdn_frontdoor_custom_domain):
     Required:
         - host_name
@@ -96,6 +100,143 @@ EOT
     }))
     log_scrubbing_rule = optional(list(object({
       match_variable = string
+    })))
+    cdn_frontdoor_batch_rule_sets = optional(map(object({
+      name = string
+      rule = list(object({
+        actions = object({
+          modify_request_header = optional(list(object({
+            header_name  = string
+            header_value = optional(string)
+            operator     = string
+          })))
+          modify_response_header = optional(list(object({
+            header_name  = string
+            header_value = optional(string)
+            operator     = string
+          })))
+          route_configuration_override = optional(object({
+            caching = object({
+              behaviour               = string
+              compression_enabled     = optional(bool)
+              duration                = optional(string)
+              query_string_behaviour  = optional(string)
+              query_string_parameters = optional(list(string))
+            })
+            origin_group = optional(object({
+              cdn_frontdoor_origin_group_id = string
+              forwarding_protocol           = string
+            }))
+          }))
+          url_redirect = optional(object({
+            destination_fragment  = optional(string)
+            destination_host_name = optional(string)
+            destination_path      = optional(string)
+            query_string          = optional(string)
+            redirect_protocol     = optional(string)
+            redirect_type         = string
+          }))
+          url_rewrite = optional(object({
+            destination_path                = string
+            preserve_unmatched_path_enabled = optional(bool)
+            source_pattern                  = string
+          }))
+        })
+        behaviour_on_match = optional(string)
+        conditions = optional(object({
+          client_port = optional(list(object({
+            operator = string
+            values   = optional(list(string))
+          })))
+          device_type = optional(list(object({
+            operator = string
+            values   = list(string)
+          })))
+          host_name = optional(list(object({
+            operator   = string
+            transforms = optional(set(string))
+            values     = optional(list(string))
+          })))
+          http_version = optional(list(object({
+            operator = string
+            values   = set(string)
+          })))
+          post_argument = optional(list(object({
+            name       = string
+            operator   = string
+            transforms = optional(set(string))
+            values     = optional(list(string))
+          })))
+          query_string = optional(list(object({
+            operator   = string
+            transforms = optional(set(string))
+            values     = optional(list(string))
+          })))
+          remote_address = optional(list(object({
+            operator = string
+            values   = list(string)
+          })))
+          request_body = optional(list(object({
+            operator   = string
+            transforms = optional(set(string))
+            values     = optional(list(string))
+          })))
+          request_cookies = optional(list(object({
+            name       = string
+            operator   = string
+            transforms = optional(set(string))
+            values     = optional(list(string))
+          })))
+          request_file_extension = optional(list(object({
+            operator   = string
+            transforms = optional(set(string))
+            values     = optional(list(string))
+          })))
+          request_filename = optional(list(object({
+            operator   = string
+            transforms = optional(set(string))
+            values     = optional(list(string))
+          })))
+          request_header = optional(list(object({
+            name       = string
+            operator   = string
+            transforms = optional(set(string))
+            values     = optional(list(string))
+          })))
+          request_method = optional(list(object({
+            operator = string
+            values   = set(string)
+          })))
+          request_path = optional(list(object({
+            operator   = string
+            transforms = optional(set(string))
+            values     = optional(list(string))
+          })))
+          request_scheme = optional(list(object({
+            operator = string
+            values   = list(string)
+          })))
+          request_url = optional(list(object({
+            operator   = string
+            transforms = optional(set(string))
+            values     = optional(list(string))
+          })))
+          server_port = optional(list(object({
+            operator = string
+            values   = optional(set(string))
+          })))
+          socket_address = optional(list(object({
+            operator = string
+            values   = list(string)
+          })))
+          ssl_protocol = optional(list(object({
+            operator = string
+            values   = set(string)
+          })))
+        }))
+        name  = string
+        order = number
+      }))
     })))
     cdn_frontdoor_custom_domains = optional(map(object({
       host_name   = string
@@ -355,6 +496,7 @@ EOT
   validation {
     condition = alltrue(concat(
       [for kk in keys(var.cdn_frontdoor_profiles) : !strcontains(kk, "/")],
+      flatten([for k0, v0 in var.cdn_frontdoor_profiles : [for kk in keys(coalesce(v0.cdn_frontdoor_batch_rule_sets, {})) : !strcontains(kk, "/")]]),
       flatten([for k0, v0 in var.cdn_frontdoor_profiles : [for kk in keys(coalesce(v0.cdn_frontdoor_custom_domains, {})) : !strcontains(kk, "/")]]),
       flatten([for k0, v0 in var.cdn_frontdoor_profiles : [for k1, v1 in coalesce(v0.cdn_frontdoor_custom_domains, {}) : [for kk in keys(coalesce(v1.cdn_frontdoor_custom_domain_associations, {})) : !strcontains(kk, "/")]]]),
       flatten([for k0, v0 in var.cdn_frontdoor_profiles : [for kk in keys(coalesce(v0.cdn_frontdoor_endpoints, {})) : !strcontains(kk, "/")]]),
