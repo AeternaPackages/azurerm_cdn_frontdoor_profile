@@ -76,7 +76,7 @@ Nested cdn_frontdoor_rule_sets (azurerm_cdn_frontdoor_rule_set):
             - order
             - actions (block)
         Optional:
-            - behavior_on_match
+            - behaviour_on_match
             - conditions (block)
 Nested cdn_frontdoor_secrets (azurerm_cdn_frontdoor_secret):
     Required:
@@ -252,8 +252,7 @@ EOT
           }))
           type = string
         }))
-        minimum_tls_version = optional(string)
-        minimum_version     = optional(string)
+        minimum_version = optional(string)
       })
       cdn_frontdoor_custom_domain_associations = optional(map(object({
         cdn_frontdoor_route_ids = list(string)
@@ -320,151 +319,136 @@ EOT
     cdn_frontdoor_rule_sets = optional(map(object({
       name = string
       cdn_frontdoor_rules = optional(map(object({
-        name              = string
-        order             = number
-        behavior_on_match = optional(string)
+        name               = string
+        order              = number
+        behaviour_on_match = optional(string)
         actions = object({
-          request_header_action = optional(list(object({
-            header_action = string
-            header_name   = string
-            value         = optional(string)
+          modify_request_header = optional(list(object({
+            header_name  = string
+            header_value = optional(string)
+            operator     = string
           })))
-          response_header_action = optional(list(object({
-            header_action = string
-            header_name   = string
-            value         = optional(string)
+          modify_response_header = optional(list(object({
+            header_name  = string
+            header_value = optional(string)
+            operator     = string
           })))
-          route_configuration_override_action = optional(object({
-            cache_behavior                = optional(string)
-            cache_duration                = optional(string)
-            cdn_frontdoor_origin_group_id = optional(string)
-            compression_enabled           = optional(bool)
-            forwarding_protocol           = optional(string)
-            query_string_caching_behavior = optional(string)
-            query_string_parameters       = optional(list(string))
+          route_configuration_override = optional(object({
+            caching = object({
+              behaviour               = string
+              compression_enabled     = optional(bool)
+              duration                = optional(string)
+              query_string_behaviour  = optional(string)
+              query_string_parameters = optional(list(string))
+            })
+            origin_group = optional(object({
+              cdn_frontdoor_origin_group_id = string
+              forwarding_protocol           = string
+            }))
           }))
-          url_redirect_action = optional(object({
-            destination_fragment = optional(string)
-            destination_hostname = string
-            destination_path     = optional(string)
-            query_string         = optional(string)
-            redirect_protocol    = optional(string)
-            redirect_type        = string
+          url_redirect = optional(object({
+            destination_fragment  = optional(string)
+            destination_host_name = optional(string)
+            destination_path      = optional(string)
+            query_string          = optional(string)
+            redirect_protocol     = optional(string)
+            redirect_type         = string
           }))
-          url_rewrite_action = optional(object({
-            destination             = string
-            preserve_unmatched_path = optional(bool)
-            source_pattern          = string
+          url_rewrite = optional(object({
+            destination_path                = string
+            preserve_unmatched_path_enabled = optional(bool)
+            source_pattern                  = string
           }))
         })
         conditions = optional(object({
-          client_port_condition = optional(list(object({
-            match_values     = optional(list(string))
-            negate_condition = optional(bool)
-            operator         = string
+          client_port = optional(list(object({
+            operator = string
+            values   = optional(list(string))
           })))
-          cookies_condition = optional(list(object({
-            cookie_name      = string
-            match_values     = optional(list(string))
-            negate_condition = optional(bool)
-            operator         = string
-            transforms       = optional(set(string))
+          device_type = optional(list(object({
+            operator = string
+            values   = list(string)
           })))
-          host_name_condition = optional(list(object({
-            match_values     = optional(list(string))
-            negate_condition = optional(bool)
-            operator         = string
-            transforms       = optional(set(string))
+          host_name = optional(list(object({
+            operator   = string
+            transforms = optional(set(string))
+            values     = optional(list(string))
           })))
-          http_version_condition = optional(list(object({
-            match_values     = set(string)
-            negate_condition = optional(bool)
-            operator         = optional(string)
+          http_version = optional(list(object({
+            operator = string
+            values   = set(string)
           })))
-          is_device_condition = optional(list(object({
-            match_values     = optional(list(string))
-            negate_condition = optional(bool)
-            operator         = optional(string)
+          post_argument = optional(list(object({
+            name       = string
+            operator   = string
+            transforms = optional(set(string))
+            values     = optional(list(string))
           })))
-          post_args_condition = optional(list(object({
-            match_values     = optional(list(string))
-            negate_condition = optional(bool)
-            operator         = string
-            post_args_name   = string
-            transforms       = optional(set(string))
+          query_string = optional(list(object({
+            operator   = string
+            transforms = optional(set(string))
+            values     = optional(list(string))
           })))
-          query_string_condition = optional(list(object({
-            match_values     = optional(list(string))
-            negate_condition = optional(bool)
-            operator         = string
-            transforms       = optional(set(string))
+          remote_address = optional(list(object({
+            operator = string
+            values   = list(string)
           })))
-          remote_address_condition = optional(list(object({
-            match_values     = optional(list(string))
-            negate_condition = optional(bool)
-            operator         = optional(string)
+          request_body = optional(list(object({
+            operator   = string
+            transforms = optional(set(string))
+            values     = optional(list(string))
           })))
-          request_body_condition = optional(list(object({
-            match_values     = list(string)
-            negate_condition = optional(bool)
-            operator         = string
-            transforms       = optional(set(string))
+          request_cookies = optional(list(object({
+            name       = string
+            operator   = string
+            transforms = optional(set(string))
+            values     = optional(list(string))
           })))
-          request_header_condition = optional(list(object({
-            header_name      = string
-            match_values     = optional(list(string))
-            negate_condition = optional(bool)
-            operator         = string
-            transforms       = optional(set(string))
+          request_file_extension = optional(list(object({
+            operator   = string
+            transforms = optional(set(string))
+            values     = optional(list(string))
           })))
-          request_method_condition = optional(list(object({
-            match_values     = set(string)
-            negate_condition = optional(bool)
-            operator         = optional(string)
+          request_filename = optional(list(object({
+            operator   = string
+            transforms = optional(set(string))
+            values     = optional(list(string))
           })))
-          request_scheme_condition = optional(list(object({
-            match_values     = optional(list(string))
-            negate_condition = optional(bool)
-            operator         = optional(string)
+          request_header = optional(list(object({
+            name       = string
+            operator   = string
+            transforms = optional(set(string))
+            values     = optional(list(string))
           })))
-          request_uri_condition = optional(list(object({
-            match_values     = optional(list(string))
-            negate_condition = optional(bool)
-            operator         = string
-            transforms       = optional(set(string))
+          request_method = optional(list(object({
+            operator = string
+            values   = set(string)
           })))
-          server_port_condition = optional(list(object({
-            match_values     = set(string)
-            negate_condition = optional(bool)
-            operator         = string
+          request_path = optional(list(object({
+            operator   = string
+            transforms = optional(set(string))
+            values     = optional(list(string))
           })))
-          socket_address_condition = optional(list(object({
-            match_values     = optional(list(string))
-            negate_condition = optional(bool)
-            operator         = optional(string)
+          request_scheme = optional(list(object({
+            operator = string
+            values   = list(string)
           })))
-          ssl_protocol_condition = optional(list(object({
-            match_values     = set(string)
-            negate_condition = optional(bool)
-            operator         = optional(string)
+          request_url = optional(list(object({
+            operator   = string
+            transforms = optional(set(string))
+            values     = optional(list(string))
           })))
-          url_file_extension_condition = optional(list(object({
-            match_values     = list(string)
-            negate_condition = optional(bool)
-            operator         = string
-            transforms       = optional(set(string))
+          server_port = optional(list(object({
+            operator = string
+            values   = optional(set(string))
           })))
-          url_filename_condition = optional(list(object({
-            match_values     = optional(list(string))
-            negate_condition = optional(bool)
-            operator         = string
-            transforms       = optional(set(string))
+          socket_address = optional(list(object({
+            operator = string
+            values   = list(string)
           })))
-          url_path_condition = optional(list(object({
-            match_values     = optional(list(string))
-            negate_condition = optional(bool)
-            operator         = string
-            transforms       = optional(set(string))
+          ssl_protocol = optional(list(object({
+            operator = string
+            values   = set(string)
           })))
         }))
       })))

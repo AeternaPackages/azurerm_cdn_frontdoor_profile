@@ -400,9 +400,9 @@ output "cdn_frontdoor_rules_actions" {
   value       = module.cdn_frontdoor_rules.cdn_frontdoor_rules_actions
 }
 
-output "cdn_frontdoor_rules_behavior_on_match" {
-  description = "Map of behavior_on_match values across all cdn_frontdoor_rules, keyed the same as var.cdn_frontdoor_rules"
-  value       = module.cdn_frontdoor_rules.cdn_frontdoor_rules_behavior_on_match
+output "cdn_frontdoor_rules_behaviour_on_match" {
+  description = "Map of behaviour_on_match values across all cdn_frontdoor_rules, keyed the same as var.cdn_frontdoor_rules"
+  value       = module.cdn_frontdoor_rules.cdn_frontdoor_rules_behaviour_on_match
 }
 
 output "cdn_frontdoor_rules_cdn_frontdoor_rule_set_id" {
